@@ -11,7 +11,11 @@ module "eks" {
   vpc_id     = data.aws_vpc.selected.id
   subnet_ids = data.aws_subnet_ids.selected.ids
 
-  tags = var.cluster_tags
+  tags = {
+    Environment = var.environment
+    Project     = var.project
+    Company     = var.company
+  }
 }
 
 resource "aws_eks_node_group" "ez_fast_food" {
@@ -30,8 +34,8 @@ resource "aws_eks_node_group" "ez_fast_food" {
   ami_type       = "AL2_x86_64"
 
   tags = {
-    Environment = "dev"
-    Project     = "ez-fast-food"
+    Environment = var.environment
+    Project     = var.project
   }
 }
 
@@ -74,4 +78,37 @@ resource "kubernetes_namespace" "ez_fast_food" {
   metadata {
     name = var.namespace_name
   }
+}
+
+# API Gateway (HTTP API)
+resource "aws_apigatewayv2_api" "http_api" {
+  name          = "${var.project}-api"
+  protocol_type = "HTTP"
+
+  tags = {
+    Environment = var.environment
+    Project     = var.project
+  }
+}
+
+# API Gateway Integration with EKS
+resource "aws_apigatewayv2_integration" "eks_integration" {
+  api_id                  = aws_apigatewayv2_api.http_api.id
+  integration_type        = "HTTP_PROXY"
+  integration_uri         = var.eks_service_url # URL exposta pelo serviço no EKS
+  payload_format_version  = "1.0"
+}
+
+# API Gateway Route
+resource "aws_apigatewayv2_route" "eks_route" {
+  api_id    = aws_apigatewayv2_api.http_api.id
+  route_key = "ANY /{proxy+}"
+  target    = "integrations/${aws_apigatewayv2_integration.eks_integration.id}"
+}
+
+# API Gateway Stage
+resource "aws_apigatewayv2_stage" "default_stage" {
+  api_id      = aws_apigatewayv2_api.http_api.id
+  name        = "$default"
+  auto_deploy = true
 }
