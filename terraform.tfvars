@@ -7,3 +7,5 @@ environment     = "dev"
 project         = "ez-fast-food"
 company         = "duosilva-tech-solutions"
 eks_service_url = ""
+additional_subnet_cidr = "10.0.3.0/24"
+az_index       = 2
