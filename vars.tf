@@ -8,6 +8,11 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "cluster_version" {
+  description = "Versão do cluster EKS"
+  type        = string
+}
+
 variable "vpc_name" {
   description = "Nome da VPC existente para filtrar o VPC ID dinamicamente"
   type        = string

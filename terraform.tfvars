@@ -1,5 +1,6 @@
 aws_region           = "us-east-1"
-cluster_name         = "duosilva-tech-dev-cluster"
+cluster_name         = "duosilva-tech-solutions-dev-cluster"
+cluster_version      = "1.31"
 vpc_name             = "vpc-dev-nvirginia-ezfastfood-vpc" 
 namespace_name       = "ez-fastfood-namespace"
 ec2_key_name         = "ez-fastfood-key-dev"
