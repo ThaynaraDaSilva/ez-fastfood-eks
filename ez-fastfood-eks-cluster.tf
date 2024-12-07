@@ -35,7 +35,6 @@ module "eks_cluster" {
   # Use the subnet IDs from the aws_subnets data source
   subnet_ids      = data.aws_subnets.selected.ids  # Reference the selected subnets
 
-  # Additional cluster-specific settings (e.g., logging, IAM roles) can be added here
   tags = {
     Environment = var.environment
     Project     = var.project

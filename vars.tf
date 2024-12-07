@@ -43,18 +43,32 @@ variable "company" {
   type        = string
 }
 
-variable "additional_subnet_cidr" {
-  description = "CIDR Block da nova subnet a ser criada"
+variable "node_group_name" {
+  description = "Nome do Node Group EKS"
   type        = string
 }
 
-variable "az_index" {
-  description = "Índice da Availability Zone para a nova subnet (ex.: 0 para a primeira AZ)"
-  type        = number
-  default     = 2
+variable "instance_types" {
+  description = "Tipos de instâncias para os Nodes do EKS"
+  type        = list(string)
 }
 
-variable "public_route_table_tag" {
-  description = "Tag usada para identificar a Route Table pública na VPC"
+variable "desired_capacity" {
+  description = "Capacidade desejada do Node Group"
+  type        = number
+}
+
+variable "min_size" {
+  description = "Capacidade mínima do Node Group"
+  type        = number
+}
+
+variable "max_size" {
+  description = "Capacidade máxima do Node Group"
+  type        = number
+}
+
+variable "capacity_type"{
+  description = "Tipo de capacidade"
   type        = string
 }
