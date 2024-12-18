@@ -1,10 +1,9 @@
 name: EKS Infrastructure
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-      - feature/amazon-eks-node-group-terraform
 env:
   TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
   TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

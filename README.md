@@ -12,10 +12,10 @@ No pipeline configurado no GitHub Actions, as credenciais foram armazenadas como
   - **AWS_SECRET_ACCESS_KEY**
 
 ## Links dos demais repositórios:
-- APIs: https://github.com/ThaynaraDaSilva/ez-fastfood-api
-- EKS:https://github.com/ThaynaraDaSilva/ez-fastfood-eks
-- Lambda: https://github.com/ThaynaraDaSilva/ez-fastfood-authentication
+- Network: https://github.com/ThaynaraDaSilva/ez-fastfood-network
 - RDS: https://github.com/ThaynaraDaSilva/ez-fastfood-database
+- Lambda: https://github.com/ThaynaraDaSilva/ez-fastfood-authentication
+- APIs: https://github.com/ThaynaraDaSilva/ez-fastfood-api
 
 ## Desenvolvido por:
 @tchfer : RM357414<br>
