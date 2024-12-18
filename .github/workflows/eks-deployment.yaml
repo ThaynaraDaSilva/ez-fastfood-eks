@@ -48,7 +48,7 @@ jobs:
 
     - name: Terraform plan
       id: plan
-      run: terraform plan -refresh=false -out=tfplan
+      run: terraform plan -out=tfplan
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
