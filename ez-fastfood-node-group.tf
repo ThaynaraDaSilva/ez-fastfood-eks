@@ -20,6 +20,7 @@ data "aws_iam_policy_document" "eks_assume_role_policy" {
   }
 }
 
+# Attach required policies to the Node Group IAM Role
 resource "aws_iam_role_policy_attachment" "eks_worker_node" {
   role       = aws_iam_role.eks_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
@@ -35,13 +36,14 @@ resource "aws_iam_role_policy_attachment" "ec2_container_registry_read" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+
 # Node Group Configuration
 resource "aws_eks_node_group" "node_group" {
   cluster_name    = var.cluster_name
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.eks_node_group_role.arn
   subnet_ids      = data.aws_subnets.selected.ids
-  depends_on   = [module.eks_cluster]
+  depends_on      = [module.eks_cluster]
 
   scaling_config {
     desired_size = var.desired_capacity
