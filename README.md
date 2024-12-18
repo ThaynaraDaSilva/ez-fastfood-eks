@@ -16,6 +16,7 @@ No pipeline configurado no GitHub Actions, as credenciais foram armazenadas como
 - RDS: https://github.com/ThaynaraDaSilva/ez-fastfood-database
 - Lambda: https://github.com/ThaynaraDaSilva/ez-fastfood-authentication
 - APIs: https://github.com/ThaynaraDaSilva/ez-fastfood-api
+- Apresentação da arquitetura: https://www.youtube.com/watch?v=MhPpoUZhlFs
 
 ## Desenvolvido por:
 @tchfer : RM357414<br>
