@@ -1,5 +1,5 @@
 aws_region           = "us-east-1"
-cluster_name         = "ez-fastfood-cluster-dev"
+cluster_name         = "ez-fastfood-cluster"
 cluster_version      = "1.31"
 vpc_name             = "vpc-dev-nvirginia-ezfastfood-vpc" 
 namespace_name       = "ez-fastfood-namespace"
@@ -7,7 +7,7 @@ ec2_key_name         = "ez-fastfood-key-dev"
 environment          = "dev"
 project              = "ez-fast-food"
 company              = "duosilva-tech-solutions"
-node_group_name        = "ez-fastfood-ng-dev"
+node_group_name        = "ez-fastfood-nodegroup-dev"
 capacity_type          = "ON_DEMAND"
 instance_types         = ["t3.micro"]
 desired_capacity       = 1
