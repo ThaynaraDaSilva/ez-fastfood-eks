@@ -1,6 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
 
 # Query the VPC by name or ID
 data "aws_vpc" "eks_vpc" {
