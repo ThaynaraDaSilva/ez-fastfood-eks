@@ -1,11 +1,6 @@
-provider "aws" {
-  region = var.aws_region
-}
 
-# Query the VPC by name or ID (depending on your need)
+# Query the VPC by name or ID
 data "aws_vpc" "eks_vpc" {
-  # You can filter by VPC name or ID, depending on how you want to reference the VPC
-  # If you want to filter by name, use the following:
   filter {
     name   = "tag:Name"
     values = [var.vpc_name]  # Assuming vpc_name is a variable containing the VPC's name
@@ -25,20 +20,50 @@ data "aws_subnets" "selected" {
   }
 }
 
+
 # EKS Cluster setup
 module "eks_cluster" {
   source          = "terraform-aws-modules/eks/aws"
+  version         = "~> 20.0"
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
   vpc_id          = data.aws_vpc.eks_vpc.id
 
   # Use the subnet IDs from the aws_subnets data source
-  subnet_ids      = data.aws_subnets.selected.ids  # Reference the selected subnets
+  subnet_ids = data.aws_subnets.selected.ids
 
-  # Additional cluster-specific settings (e.g., logging, IAM roles) can be added here
   tags = {
     Environment = var.environment
     Project     = var.project
     Company     = var.company
   }
 }
+
+# IAM Users to Attach Policies
+variable "eks_users" {
+  default = ["terraform-dev-user", "github-dev-user"]
+}
+
+# # Replace aws-auth with Access Policy Associations
+# resource "aws_eks_access_policy_association" "eks_access_policy_terraform_user" {
+#   cluster_name  = module.eks_cluster.cluster_name
+#   policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
+#   principal_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/terraform-dev-user"
+
+#   access_scope {
+#     type = "cluster"
+#   }
+# }
+
+# resource "aws_eks_access_policy_association" "eks_access_policy_github_user" {
+#   cluster_name  = module.eks_cluster.cluster_name
+#   policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
+#   principal_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/github-dev-user"
+
+#   access_scope {
+#     type = "cluster"
+#   }
+# }
+
+# Fetch AWS Account ID for user ARNs
+data "aws_caller_identity" "current" {}
